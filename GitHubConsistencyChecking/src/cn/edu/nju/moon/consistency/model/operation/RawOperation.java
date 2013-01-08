@@ -7,7 +7,7 @@ import cn.edu.nju.moon.consistency.model.GlobalData;
  * The most generic model of operation, which
  * consists only of type, variable, and value.
  */
-public class GenericOperation
+public class RawOperation
 {
 	private int type;
 	private String var;
@@ -21,7 +21,7 @@ public class GenericOperation
 	 * @param var variable
 	 * @param val value
 	 */
-	public GenericOperation(int type, String var, int val)
+	public RawOperation(int type, String var, int val)
 	{
 			this.type = type;
 			this.var = var;
@@ -42,11 +42,11 @@ public class GenericOperation
 	}
 
 	/**
-	 * constructor {@link GenericOperation} from String
+	 * constructor {@link RawOperation} from String
 	 *
 	 * @param opStr operation in String format: rx1
 	 */
-	public GenericOperation(String opStr)
+	public RawOperation(String opStr)
 	{
 		this.opStr = opStr;
 
@@ -66,9 +66,9 @@ public class GenericOperation
 	/**
 	 * copy constructor
 	 *
-	 * @param otherOp {@link GenericOperation} to be copied
+	 * @param otherOp {@link RawOperation} to be copied
 	 */
-	public GenericOperation(GenericOperation otherOp)
+	public RawOperation(RawOperation otherOp)
 	{
 		this(otherOp.getType(), otherOp.getVariable(), otherOp.getValue());
 	}
@@ -99,7 +99,7 @@ public class GenericOperation
 	}
 
 	/**
-	 * reset data structures in {@link GenericOperation}
+	 * reset data structures in {@link RawOperation}
 	 * for reuse
 	 */
 	public void resetOp()
@@ -127,10 +127,10 @@ public class GenericOperation
 	@Override
 	public boolean equals(Object otherOp)
 	{
-		if((otherOp == null) || !(otherOp instanceof GenericOperation))
+		if((otherOp == null) || !(otherOp instanceof RawOperation))
 			return false;
 
-		GenericOperation op = (GenericOperation) otherOp;
+		RawOperation op = (RawOperation) otherOp;
 
 		return op.type == this.type && op.var.equals(this.var)
 			&& op.val == this.val;

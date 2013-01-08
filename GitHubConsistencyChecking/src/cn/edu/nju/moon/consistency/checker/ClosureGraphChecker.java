@@ -1,7 +1,7 @@
 package cn.edu.nju.moon.consistency.checker;
 
 import cn.edu.nju.moon.consistency.model.observation.ClosureObservation;
-import cn.edu.nju.moon.consistency.model.observation.RawObservation;
+import cn.edu.nju.moon.consistency.model.observation.BasicObservation;
 import cn.edu.nju.moon.consistency.ui.DotUI;
 
 /**
@@ -11,20 +11,20 @@ import cn.edu.nju.moon.consistency.ui.DotUI;
  * @author hengxin
  * @date 2013-1-8
  */
-public class OperationGraphChecker extends Checker
+public class ClosureGraphChecker extends Checker
 {
 
-	public OperationGraphChecker(RawObservation rob)
+	public ClosureGraphChecker(BasicObservation rob)
 	{
 		super(rob);
 	}
 
 	/**
 	 * Constructor
-	 * @param rob	{@link RawObservation} to check
+	 * @param rob	{@link BasicObservation} to check
 	 * @param name	name for visualization in {@link DotUI}
 	 */
-	public OperationGraphChecker(RawObservation rob, String name)
+	public ClosureGraphChecker(BasicObservation rob, String name)
 	{
 		super(rob, name);
 	}
@@ -33,7 +33,7 @@ public class OperationGraphChecker extends Checker
 	 * get the appropriate {@link ClosureObservation} with respect to @param masterPid
 	 */
 	@Override
-	protected RawObservation getMasterObservation(int masterPid)
+	protected BasicObservation getMasterObservation(int masterPid)
 	{
 		return new ClosureObservation(masterPid, super.rob);
 	}
@@ -44,14 +44,14 @@ public class OperationGraphChecker extends Checker
 	 * @param rob observation to check (i.e., {@link ClosureObservation})
 	 */
 	@Override
-	protected boolean check_part(RawObservation rob)
+	protected boolean check_part(BasicObservation rob)
 	{
 		boolean consistent = true;
 		
-		ClosureObservation master_cls_ob = (ClosureObservation) rob;
+		ClosureObservation clob = (ClosureObservation) rob;
 
 		// 1) add program order edge and read-write mapping
-		master_cls_ob.preprocessing();
+		clob.preprocessing();
 
 		/**
 		 *  2) iteration of applying two rules until no new edges are added,
@@ -60,9 +60,9 @@ public class OperationGraphChecker extends Checker
 		boolean changed_wprime2w = false;
 		do
 		{
-			master_cls_ob.closure();
-			changed_wprime2w = master_cls_ob.apply_wprime2w_edge_rule();
-			if (master_cls_ob.cycle_check())	// cycle detection
+			clob.closure();
+			changed_wprime2w = clob.apply_wprime2w_edge_rule();
+			if (clob.cycle_check())	// cycle detection
 			{
 				consistent = false;
 				break;
@@ -73,7 +73,7 @@ public class OperationGraphChecker extends Checker
 //			schedule.constructExecution(master_cls_ob);
 
 		// ui
-		DotUI.getInstance().execute("operationgraph/" + name + "_" + master_cls_ob.getMasterPid());
+		DotUI.getInstance().execute("operationgraph/" + name + "_" + clob.getMasterPid());
 		
 		return consistent;
 	}
