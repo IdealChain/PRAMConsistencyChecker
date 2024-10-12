@@ -1,0 +1,8 @@
+{:index 0, :time 20, :type :invoke, :process 0, :f :write, :value ["a" 0]}
+{:index 1, :time 1662, :type :ok, :process 0, :f :write, :value ["a" 0]}
+{:index 2, :time 1689, :type :invoke, :process 0, :f :write, :value ["b" 0]}
+{:index 3, :time 2454, :type :ok, :process 0, :f :write, :value ["b" 0]}
+{:index 4, :time 2475, :type :invoke, :process 0, :f :write, :value ["a" 1]}
+{:index 5, :time 2859, :type :ok, :process 0, :f :write, :value ["a" 1]}
+{:index 6, :time 2878, :type :invoke, :process 0, :f :write, :value ["b" 2]}
+{:index 7, :time 3616, :type :ok, :process 0, :f :write, :value ["b" 2]}
